@@ -1,0 +1,32 @@
+{
+  "name": "glyph-preview-panel",
+  "version": "0.0.1",
+  "description": "A glyph preview panel for font design",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/welai/GlyphPreviewPanel.git"
+  },
+  "author": "Celestial Phineas",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/welai/GlyphPreviewPanel/issues"
+  },
+  "homepage": "https://github.com/welai/GlyphPreviewPanel#readme",
+  "devDependencies": {
+    "@types/node": "^10.12.1",
+    "@types/webpack": "^4.4.17",
+    "ts-loader": "^5.3.0",
+    "ts-node": "^7.0.1",
+    "typescript": "^3.1.5",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "gridcanvas": "^0.1.1"
+  }
+}
