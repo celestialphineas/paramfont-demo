@@ -86,16 +86,16 @@ export default class GlyphPreviewPanel {
   // 2-stage constructor
   private init(elementID: string, config?: Config) {
     var minX, maxX, minY, maxY: number;
-    this._upm           = (config ? config.upm          : defaultConfig.upm) || defaultConfig.upm;
-    this._ascender      = (config ? config.ascender     : defaultConfig.upm) || defaultConfig.ascender;
-    this._descender     = (config ? config.descender    : defaultConfig.upm) || defaultConfig.descender;
-    this._capHeight     = (config ? config.capHeight    : defaultConfig.upm) || defaultConfig.capHeight;
-    this._xHeight       = (config ? config.xHeight      : defaultConfig.upm) || defaultConfig.xHeight;
-    this._advanceWidth  = (config ? config.advanceWidth : defaultConfig.upm) || defaultConfig.advanceWidth;
-    minX                = (config ? config.minX         : -this._upm)         || -this._upm;
-    maxX                = (config ? config.maxX         : this._upm*2)        || this._upm*2;
-    minY                = (config ? config.minY         : -this._upm)         || -this._upm;
-    maxY                = (config ? config.maxY         : this._upm * 1.5)    || this._upm*1.5;
+    this._upm           = (config ? config.upm                  : defaultConfig.upm)          || defaultConfig.upm;
+    this._ascender      = (config ? config.ascender             : defaultConfig.ascender)     || defaultConfig.ascender;
+    this._descender     = (config ? Math.abs(config.descender)  : defaultConfig.descender)    || defaultConfig.descender;
+    this._capHeight     = (config ? config.capHeight            : defaultConfig.capHeight)    || defaultConfig.capHeight;
+    this._xHeight       = (config ? config.xHeight              : defaultConfig.xHeight)      || defaultConfig.xHeight;
+    this._advanceWidth  = (config ? config.advanceWidth         : defaultConfig.advanceWidth) || defaultConfig.advanceWidth;
+    minX                = (config ? config.minX                 : -this._upm)                 || -this._upm;
+    maxX                = (config ? config.maxX                 : this._upm*2)                || this._upm*2;
+    minY                = (config ? config.minY                 : -this._upm)                 || -this._upm;
+    maxY                = (config ? config.maxY                 : this._upm * 1.5)            || this._upm*1.5;
     this.gridCanvas = new GridCanvas(elementID, { bound: { minX, maxX, minY, maxY } });
     this.container = this.gridCanvas.container;
     this.gridCanvas.redrawLower = this.redrawLower;
@@ -108,7 +108,14 @@ export default class GlyphPreviewPanel {
    * @param ctx   2D graphical context of the canvas
    */
   protected redrawUpper = (ctx: CanvasRenderingContext2D) => {
-
+    ctx.clearRect(0, 0, this.gridCanvas.upperLayer.width, this.gridCanvas.upperLayer.height);
+    ctx.strokeRect(this.gridCanvas.p2vX(0), this.gridCanvas.p2vY(0), 2, 2);
+    console.log([this._descender, this.gridCanvas.bound.minY]);
+    // TODO: Use v2ph & v2pw
+    ctx.strokeRect(this.gridCanvas.p2vX(0), this.gridCanvas.p2vY(this._ascender),
+      this._advanceWidth / this.gridCanvas.zoomFactor,
+      (this._ascender + this._descender) / this.gridCanvas.zoomFactor);
+    console.log([this._descender, this.gridCanvas.bound.minY]);
   }
   /**
    * The drawing function on gridCanvas's lower layer
