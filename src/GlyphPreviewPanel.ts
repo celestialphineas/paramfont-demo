@@ -1,5 +1,7 @@
 import GridCanvas from "gridcanvas";
 
+// TODO: Provide a function to display cubic bezier paths and its points
+
 /**
  * Configuration options
  * @interface
