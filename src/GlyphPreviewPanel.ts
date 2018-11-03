@@ -29,7 +29,7 @@ interface Config {
 }
 
 var defaultConfig: Config = {
-  upm: 1000, ascender: 935, descender: 265, xHeight: 527,
+  upm: 1000, ascender: 935, descender: 265, capHeight: 689, xHeight: 527,
   advanceWidth: 600, 
   minX: -1000, maxX: 2000, minY: -1000, maxY: 1000*1.5
 }
@@ -63,6 +63,24 @@ export default class GlyphPreviewPanel {
   set capHeight(newVal)     { if(this.gridCanvas) this.gridCanvas.display(); this._capHeight = newVal; }
   set xHeight(newVal)       { if(this.gridCanvas) this.gridCanvas.display(); this._xHeight = newVal; }
   set advanceWidth(newVal)  { if(this.gridCanvas) this.gridCanvas.display(); this._advanceWidth = newVal; }
+
+  // Flags
+  private showBorderFlag    = true;
+  private showBaselineFlag  = true;
+  private showXheightFlag   = true;
+  private showCapHeightFlag = true;
+  /** Show the border consisting of acsender, descender, left side and right side */
+  get showBorder()          { return this.showBorderFlag; }
+  set showBorder(newVal)    { this.showBorderFlag = newVal; this.gridCanvas.display(); }
+  /** Show baseline reference */
+  get showBaseline()        { return this.showBaselineFlag; }
+  set showBaseline(newVal)  { this.showBaselineFlag = newVal; this.gridCanvas.display(); }
+  /** Show x-height reference */
+  get showXheight()         { return this.showXheightFlag; }
+  set showXheight(newVal)   { this.showXheightFlag = newVal; this.gridCanvas.display(); }
+  /** Show cap height */
+  get showCapHeight()       { return this.showCapHeightFlag; }
+  set showCapHeight(newVal) { this.showCapHeightFlag = newVal; this.gridCanvas.display(); }
 
   /**
    * Constructing GlyphPreviewPanel
@@ -102,20 +120,51 @@ export default class GlyphPreviewPanel {
     this.gridCanvas.redrawUpper = this.redrawUpper;
   }
 
-  // TODO: Finish the two functions below
+  // Reference line styles
+  private _outerRefStrokeColor = '#cccccc';
+  private _outerRefStrokeWidth = 1.5;
+  private _innerRefStrokeColor = '#ffeeee';
+  private _innerRefStrokeWidth = 10;
+  get outerRefStrokeColor() { return this._outerRefStrokeColor; }
+  get outerRefStrokeWidth() { return this._outerRefStrokeWidth; }
+  get innerRefStrokeColor() { return this._innerRefStrokeColor; }
+  get innerRefStrokeWidth() { return this._innerRefStrokeWidth; }
+  set outerRefStrokeColor(newVal) { this._outerRefStrokeColor = newVal; this.gridCanvas.display(); }
+  set outerRefStrokeWidth(newVal) { this._outerRefStrokeWidth = newVal; this.gridCanvas.display(); }
+  set innerRefStrokeColor(newVal) { this._innerRefStrokeColor = newVal; this.gridCanvas.display(); }
+  set innerRefStrokeWidth(newVal) { this._innerRefStrokeWidth = newVal; this.gridCanvas.display(); }
+
   /**
    * The drawing function on gridCanvas's upper layer
    * @param ctx   2D graphical context of the canvas
    */
   protected redrawUpper = (ctx: CanvasRenderingContext2D) => {
     ctx.clearRect(0, 0, this.gridCanvas.upperLayer.width, this.gridCanvas.upperLayer.height);
-    ctx.strokeRect(this.gridCanvas.p2vX(0), this.gridCanvas.p2vY(0), 2, 2);
-    console.log([this._descender, this.gridCanvas.bound.minY]);
-    // TODO: Use v2ph & v2pw
-    ctx.strokeRect(this.gridCanvas.p2vX(0), this.gridCanvas.p2vY(this._ascender),
-      this._advanceWidth / this.gridCanvas.zoomFactor,
-      (this._ascender + this._descender) / this.gridCanvas.zoomFactor);
-    console.log([this._descender, this.gridCanvas.bound.minY]);
+    ctx.fillStyle = this._innerRefStrokeColor;
+    ctx.lineWidth = this._innerRefStrokeWidth;
+    // baseline
+    if(this.showBaselineFlag) {
+      ctx.fillRect(this.gridCanvas.p2vX(0), this.gridCanvas.p2vY(0) - this._innerRefStrokeWidth/2,
+        this.gridCanvas.p2vW(this._advanceWidth), this._innerRefStrokeWidth);
+    }
+    // x-height
+    if(this.showXheightFlag) {
+      ctx.fillRect(this.gridCanvas.p2vX(0), this.gridCanvas.p2vY(this._xHeight) - this._innerRefStrokeWidth/2,
+        this.gridCanvas.p2vW(this._advanceWidth), this._innerRefStrokeWidth);
+    }
+    // cap height
+    if(this.showCapHeightFlag) {
+      ctx.fillRect(this.gridCanvas.p2vX(0), this.gridCanvas.p2vY(this._capHeight) - this._innerRefStrokeWidth/2,
+        this.gridCanvas.p2vW(this._advanceWidth), this._innerRefStrokeWidth);
+    }
+
+    ctx.strokeStyle = this._outerRefStrokeColor;
+    ctx.lineWidth = this._outerRefStrokeWidth * this.gridCanvas.resolution;
+    if(this.showBorderFlag) {
+      ctx.strokeRect(this.gridCanvas.p2vX(0), this.gridCanvas.p2vY(this._ascender),
+        this.gridCanvas.p2vW(this._advanceWidth),
+        this.gridCanvas.p2vH(this._ascender + this._descender));
+    }
   }
   /**
    * The drawing function on gridCanvas's lower layer
