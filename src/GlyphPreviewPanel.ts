@@ -1,4 +1,5 @@
-import GridCanvas from "gridcanvas";
+import GridCanvas from 'gridcanvas';
+import GlyphOutline from './GlyphOutline';
 
 // TODO: Provide a function to display cubic bezier paths and its points
 
@@ -24,6 +25,9 @@ export default class GlyphPreviewPanel {
   container: HTMLElement;
   /** Grid canvas object */
   gridCanvas: GridCanvas;
+
+  /** A list of the glyph outlines to draw */
+  glyphs: GlyphOutline[] = [ GlyphOutline.getDefault('circle') ];
 
   /**
    * Constructing GlyphPreviewPanel
@@ -61,6 +65,9 @@ export default class GlyphPreviewPanel {
    */
   protected redrawUpper = (ctx: CanvasRenderingContext2D) => {
     ctx.clearRect(0, 0, this.gridCanvas.upperLayer.width, this.gridCanvas.upperLayer.height);
+    for(let glyph of this.glyphs) {
+      console.log(glyph.transformedShapes(this.gridCanvas.projectToView.bind(this.gridCanvas)));
+    }
   }
   /**
    * The drawing function on gridCanvas's lower layer

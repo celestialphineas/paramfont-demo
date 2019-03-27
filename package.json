@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/celestialphineas/varfont-demo#readme",
   "devDependencies": {
+    "@types/bezier-js": "0.0.8",
     "@types/node": "^10.12.1",
     "@types/webpack": "^4.4.17",
     "ts-loader": "^5.3.0",
@@ -27,6 +28,7 @@
     "webpack-cli": "^3.1.2"
   },
   "dependencies": {
-    "gridcanvas": "^0.1.6"
+    "bezier-js": "^2.4.0",
+    "gridcanvas": "^0.1.7"
   }
 }
