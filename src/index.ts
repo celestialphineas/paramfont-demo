@@ -1,5 +1,5 @@
 import GlyphPreviewPanel from './GlyphPreviewPanel';
 
 window.addEventListener('load', () => {
-  let gridCanvas = (window as any).gridCanvas = new GlyphPreviewPanel('preview');
+  let glyphPreviewPanel = (window as any).glyphPreviewPanel = new GlyphPreviewPanel('preview');
 });

@@ -1,7 +1,7 @@
 {
-  "name": "glyph-preview-panel",
+  "name": "varfont-demo",
   "version": "0.0.1",
-  "description": "A glyph preview panel for font design",
+  "description": "Variable glyphs demo",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/welai/GlyphPreviewPanel.git"
+    "url": "https://github.com/celestialphineas/varfont-demo"
   },
   "author": "Celestial Phineas",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/welai/GlyphPreviewPanel/issues"
+    "url": "https://github.com/celestialphineas/varfont-demo/issues"
   },
-  "homepage": "https://github.com/welai/GlyphPreviewPanel#readme",
+  "homepage": "https://github.com/celestialphineas/varfont-demo#readme",
   "devDependencies": {
     "@types/node": "^10.12.1",
     "@types/webpack": "^4.4.17",
