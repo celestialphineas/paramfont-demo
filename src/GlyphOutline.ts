@@ -15,18 +15,19 @@ export default class GlyphOutline {
   /** Shape list */
   shapes: { [name: string]: Shape } = {};
   /** Get the transformed shape */
-  transformedShapes(transformFunction: (coord: number[]) => number[]): { [name: string]: Shape } {
-      let result: { [name: string]: Shape } = {};
-      for(let property in this.shapes) {
-        result[property] = this.shapes[property].map(
-          path => path.map(
-            segment => segment.map(
-              point => transformFunction(point) as Point
-            )
-          ) as Path
-        );
-      }
-      return result;
+  transformedShapes(transformFunction: (coord: number[]) => number[], additionalOffset?: [number, number]): { [name: string]: Shape } {
+    let result: { [name: string]: Shape } = {};
+    const offset: [number, number] = additionalOffset || [0, 0];
+    for(let property in this.shapes) {
+      result[property] = this.shapes[property].map(
+        path => path.map(
+          segment => segment.map(
+            point => (transformFunction(((pt: Point) => [pt[0] + offset[0], pt[1] + offset[1]])(point)) as Point)
+          )
+        ) as Path
+      );
+    }
+    return result;
   }
   
   constructor(glyphName?: string, shapes?: { [name: string]: Shape }) {
@@ -42,6 +43,7 @@ export default class GlyphOutline {
 
 const cRatio = 0.55191502449;
 const cRadius = 300;
+const hRadius = 200;
 /** Default glyph outlines for testing */
 const defaultGlyphs: { [name: string]: GlyphOutline } = {
   'circle': new GlyphOutline('circle', {
@@ -51,7 +53,7 @@ const defaultGlyphs: { [name: string]: GlyphOutline } = {
         // Segment 1
         [ [cRadius, 0], [cRadius * (1 - cRatio), 0], [0, cRadius * (1 - cRatio)], [0, cRadius] ],
         // Segment 2
-        [ [0, cRadius], [0, cRadius * (1 + cRatio)], [cRadius * (1 - cRadius), 2*cRadius], [cRadius, 2*cRadius] ],
+        [ [0, cRadius], [0, cRadius * (1 + cRatio)], [cRadius * (1 - cRatio), 2*cRadius], [cRadius, 2*cRadius] ],
         // Segment 3
         [ [cRadius, 2*cRadius], [cRadius * (1 + cRatio), 2*cRadius], [2*cRadius, cRadius * (1 + cRatio)], [2*cRadius, cRadius] ],
         // Segment 4
@@ -59,4 +61,30 @@ const defaultGlyphs: { [name: string]: GlyphOutline } = {
       ]
     ]
   }),
+  'ring': new GlyphOutline('ring', {
+    'main': [
+      // Path 1
+      [
+        // Segment 1
+        [ [cRadius, 0], [cRadius * (1 - cRatio), 0], [0, cRadius * (1 - cRatio)], [0, cRadius] ],
+        // Segment 2
+        [ [0, cRadius], [0, cRadius * (1 + cRatio)], [cRadius * (1 - cRatio), 2*cRadius], [cRadius, 2*cRadius] ],
+        // Segment 3
+        [ [cRadius, 2*cRadius], [cRadius * (1 + cRatio), 2*cRadius], [2*cRadius, cRadius * (1 + cRatio)], [2*cRadius, cRadius] ],
+        // Segment 4
+        [ [2*cRadius, cRadius], [2*cRadius, cRadius * (1 - cRatio)], [cRadius * (1 + cRatio), 0], [cRadius, 0] ]
+      ],
+      // Path 2
+      [
+        // Segment 1
+        [ [cRadius, cRadius - hRadius], [cRadius + hRadius * cRatio, cRadius - hRadius], [cRadius + hRadius, cRadius - hRadius * cRatio], [cRadius + hRadius, cRadius] ],
+        // Segment 2
+        [ [cRadius - hRadius + 2*hRadius, cRadius], [cRadius - hRadius + 2*hRadius, cRadius + hRadius * cRatio], [cRadius+ hRadius * cRatio, cRadius - hRadius + 2*hRadius], [cRadius, cRadius + hRadius] ],
+        // Segment 3
+        [ [cRadius, cRadius + hRadius], [cRadius - hRadius * cRatio, cRadius - hRadius + 2*hRadius], [cRadius - hRadius, cRadius + hRadius * cRatio], [cRadius - hRadius, cRadius] ],
+        // Segment 4
+        [ [cRadius - hRadius, cRadius], [cRadius - hRadius, cRadius - hRadius * cRatio], [cRadius - hRadius * cRatio, cRadius - hRadius], [cRadius, cRadius - hRadius] ],
+      ]
+    ]
+  })
 };

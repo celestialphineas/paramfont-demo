@@ -13,7 +13,7 @@ interface Config {
 }
 
 var defaultConfig: Config = {
-  minX: -500, maxX: 2500, minY: -1000, maxY: 1000*1.5
+  minX: -500, maxX: 4000, minY: -1000, maxY: 1000*1.5
 }
 
 /**
@@ -27,7 +27,12 @@ export default class GlyphPreviewPanel {
   gridCanvas: GridCanvas;
 
   /** A list of the glyph outlines to draw */
-  glyphs: GlyphOutline[] = [ GlyphOutline.getDefault('circle') ];
+  glyphs: GlyphOutline[] = [
+    GlyphOutline.getDefault('circle'),
+    GlyphOutline.getDefault('ring'),
+    GlyphOutline.getDefault('circle'),
+    GlyphOutline.getDefault('ring')
+  ];
 
   /**
    * Constructing GlyphPreviewPanel
@@ -65,8 +70,29 @@ export default class GlyphPreviewPanel {
    */
   protected redrawUpper = (ctx: CanvasRenderingContext2D) => {
     ctx.clearRect(0, 0, this.gridCanvas.upperLayer.width, this.gridCanvas.upperLayer.height);
+    // The accumulated advance width
+    let accumulatedAdvance = 0;
     for(let glyph of this.glyphs) {
-      console.log(glyph.transformedShapes(this.gridCanvas.projectToView.bind(this.gridCanvas)));
+      // Transform the point from project coord to view
+      const transformed = glyph.transformedShapes(
+        // The gridCanvas transformation
+        this.gridCanvas.projectToView.bind(this.gridCanvas),
+        // Consider the advance width
+        [accumulatedAdvance, 0]);
+      for(let name in transformed) {
+        const shape = transformed[name];
+        ctx.beginPath();
+        shape.forEach(path => {
+          path.forEach((segment, i) => {
+            if(!i) ctx.moveTo(segment[0][0], segment[0][1]);
+            ctx.bezierCurveTo(segment[1][0], segment[1][1],
+              segment[2][0], segment[2][1],
+              segment[3][0], segment[3][1]);
+          })
+        });
+        ctx.fill();
+      }
+      accumulatedAdvance += glyph.advanceWidth;
     }
   }
   /**
