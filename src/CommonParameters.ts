@@ -27,5 +27,9 @@ export default class CommonParameters {
    * tells the UPMs of each such unit
    */
   widthUnit = 30;
+  /** Horizontal superness */
+  hSuper = 0.55191502449;
+  /** Vertical superness */
+  vSuper = 0.55191502449;
 }
 
