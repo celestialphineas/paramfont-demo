@@ -1,1 +1,1 @@
-# GlyphPreviewPanel
+# Parametric font demo
