@@ -107,6 +107,18 @@ eval("!function(e,t){ true?module.exports=t():undefined}(window,function(){retur
 
 /***/ }),
 
+/***/ "./src/CommonParameters.ts":
+/*!*********************************!*\
+  !*** ./src/CommonParameters.ts ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+eval("\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar CommonParameters = (function () {\n    function CommonParameters() {\n        this.upm = 600;\n        this.xHeight = 520;\n        this._ascHeight = 900;\n        this._descHeight = 250;\n        this.widthUnit = 30;\n        this.hSuper = 0.55;\n        this.vSuper = 0.55;\n    }\n    Object.defineProperty(CommonParameters.prototype, \"ascHeight\", {\n        get: function () { return this._ascHeight; },\n        set: function (newVal) { this._ascHeight = Math.abs(newVal); },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(CommonParameters.prototype, \"rAscHeight\", {\n        get: function () { return this._ascHeight / this.xHeight; },\n        set: function (ratio) { this._ascHeight = Math.abs(ratio * this.xHeight); },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(CommonParameters.prototype, \"descHeight\", {\n        get: function () { return this._descHeight; },\n        set: function (newVal) { this._descHeight = Math.abs(newVal); },\n        enumerable: true,\n        configurable: true\n    });\n    Object.defineProperty(CommonParameters.prototype, \"rDescHeight\", {\n        get: function () { return this._descHeight / this.xHeight; },\n        set: function (ratio) { this._descHeight = Math.abs(ratio * this.xHeight); },\n        enumerable: true,\n        configurable: true\n    });\n    return CommonParameters;\n}());\nexports.default = CommonParameters;\n\n\n//# sourceURL=webpack://gridpaper/./src/CommonParameters.ts?");
+
+/***/ }),
+
 /***/ "./src/GlyphOutline.ts":
 /*!*****************************!*\
   !*** ./src/GlyphOutline.ts ***!
@@ -139,7 +151,7 @@ eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar GlyphPreviewPanel_1 = __importDefault(__webpack_require__(/*! ./GlyphPreviewPanel */ \"./src/GlyphPreviewPanel.ts\"));\nwindow.addEventListener('load', function () {\n    var glyphPreviewPanel = window.glyphPreviewPanel = new GlyphPreviewPanel_1.default('preview');\n});\n\n\n//# sourceURL=webpack://gridpaper/./src/index.ts?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", { value: true });\nvar GlyphPreviewPanel_1 = __importDefault(__webpack_require__(/*! ./GlyphPreviewPanel */ \"./src/GlyphPreviewPanel.ts\"));\nvar CommonParameters_1 = __importDefault(__webpack_require__(/*! ./CommonParameters */ \"./src/CommonParameters.ts\"));\nwindow.addEventListener('load', function () {\n    var glyphPreviewPanel = window.glyphPreviewPanel = new GlyphPreviewPanel_1.default('preview');\n});\nvar globalParams = window.globalParams = new CommonParameters_1.default();\n\n\n//# sourceURL=webpack://gridpaper/./src/index.ts?");
 
 /***/ })
 

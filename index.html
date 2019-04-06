@@ -4,21 +4,50 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Glyph preview demo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <title>Parametric font demo</title>
 </head>
 <body>
-  <div id="preview" class="preview-window" style="width:60%;height:600px;"></div>
+  <div id="ops" class="ops scrollable">
+    <div class="ops-content">
+      <label>Horizontal superness</label>
+      <form>
+        <p class="range-field">
+          <input type="range" class="binded" min="0" max="1" step="0.01" data-bind="hSuper" />
+        </p>
+        <label>Vertical superness</label>
+        <p class="range-field">
+          <input type="range" class="binded" min="0" max="1" step="0.01" data-bind="vSuper" />
+        </p>
+      </form>
+    </div>
+  </div>
+  <div class="preview-column">
+    <div id="preview" class="preview-window"></div>
+    <div class="text-edit">
+      <div class="input-field">
+        <input value="Test" id="sample-text" type="text" style="font-size:40px;height:50px">
+        <label for="sample-text">Sample text</label>
+        <span class="helper-text">Please enter no more than 5 letters</span>
+      </div>
+    </div>
+  </div>
 </body>
 <script src="dist/index.js"></script>
-<style>
-body {
-  margin: 0;
-  padding: 0;
-}
-.preview-window {
-  box-shadow: 0px 5px 25px #1E88A832;
-  border: solid 1px #1E88A832;
-  margin: 25px auto;
-}
-</style>
+<link rel="stylesheet" href="dist/index.css"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+// Binding the inputs with default values
+(function () {
+  $('.binded').each(function(index, elem) {
+    var param = elem.getAttribute('data-bind');
+    $(elem).on('change', function() {
+      globalParams[param] = Number.parseFloat(elem.value);
+    });
+    $(elem).val(globalParams[param]);
+  });
+})();
+</script>
+<script>window.addEventListener('load', function() { M.AutoInit(); });</script>
 </html>

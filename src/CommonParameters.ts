@@ -28,8 +28,8 @@ export default class CommonParameters {
    */
   widthUnit = 30;
   /** Horizontal superness */
-  hSuper = 0.55191502449;
+  hSuper = 0.55;
   /** Vertical superness */
-  vSuper = 0.55191502449;
+  vSuper = 0.55;
 }
 
