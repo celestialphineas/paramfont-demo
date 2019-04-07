@@ -1,7 +1,4 @@
-type Point  = [ number, number ];
-type Segment = [ Point, Point, Point, Point ];
-type Path   = Segment[];
-type Shape  = Path[];
+import { Point, Path, Shape } from './math/primitives';
 
 /**
  * Glyph outline specification

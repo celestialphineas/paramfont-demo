@@ -6,3 +6,5 @@ window.addEventListener('load', () => {
 });
 
 const globalParams = (window as any).globalParams = new CommonParameters();
+
+// TODO: A glyph manager
