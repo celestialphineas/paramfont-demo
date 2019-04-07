@@ -1,14 +1,4 @@
-(function webpackUniversalModuleDefinition(root, factory) {
-	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory();
-	else if(typeof define === 'function' && define.amd)
-		define([], factory);
-	else if(typeof exports === 'object')
-		exports["gridpaper"] = factory();
-	else
-		root["gridpaper"] = factory();
-})(window, function() {
-return /******/ (function(modules) { // webpackBootstrap
+/******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -103,9 +93,8 @@ return /******/ (function(modules) { // webpackBootstrap
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("console.log('Hello world!');\n\n\n//# sourceURL=webpack://gridpaper/./test/index.ts?");
+eval("console.log('Hello world!');\n\n\n//# sourceURL=webpack:///./test/index.ts?");
 
 /***/ })
 
 /******/ });
-});
