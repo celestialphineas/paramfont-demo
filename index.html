@@ -44,6 +44,8 @@
     var param = elem.getAttribute('data-bind');
     $(elem).on('change', function() {
       globalParams[param] = Number.parseFloat(elem.value);
+      var event = new CustomEvent('param-change', { detail: param });
+      window.dispatchEvent(event);
     });
     $(elem).val(globalParams[param]);
   });

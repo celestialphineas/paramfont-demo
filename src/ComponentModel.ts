@@ -1,7 +1,8 @@
 import GlyphOutline from './GlyphOutline';
 import CommonParameters from './CommonParameters';
+import { Shape } from './math/primitives';
 
-export default interface GlyphModel {
+export default interface ComponentModel {
   setParameter(parameters: CommonParameters): void;
   /**
    * A list of parameters to be used
@@ -13,5 +14,5 @@ export default interface GlyphModel {
    * And for some models it may override some common parameters
   */
   readonly additionalParameters: { [name: string]: any };
-  getOutline(): GlyphOutline;
+  getShape(): Shape;
 }

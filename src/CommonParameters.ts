@@ -21,12 +21,28 @@ export default class CommonParameters {
   /** Relative descender */
   get rDescHeight() { return this._descHeight/this.xHeight; }
   set rDescHeight(ratio: number) { this._descHeight = Math.abs(ratio * this.xHeight); }
+
+  // Horizontal metrics
   /**
    * Following the METAFONT design system,
-   * each glyph has a 18-unit width. This parameter
+   * 1 em has a 18-unit width. This parameter
    * tells the UPMs of each such unit
    */
   widthUnit = 30;
+
+  // Weight control
+  /** Horizontal hairline */
+  hair = 8;
+  /** Vertical hairline */
+  vair = 10;
+  /** Stem */
+  stem = 20;
+  /** Curve stem width */
+  curve = 30;
+  /** Pen angle */
+  penAngle = 0;
+
+  // Counter shape
   /** Horizontal superness */
   hSuper = 0.55;
   /** Vertical superness */

@@ -6,7 +6,7 @@ type Mat2D = [[number, number], [number, number]];
 type Mat3D = [[number, number, number], [number, number, number], [number, number, number]];
 
 class WrappedVector {
-  private type: VectorialNames;
+  type: VectorialNames;
   constructor(private vObj: Vectorial) {
     const err = Error(`${vObj} is not a Vectorial object.`);
     if(!vObj) throw err;
