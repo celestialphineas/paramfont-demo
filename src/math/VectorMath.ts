@@ -5,7 +5,7 @@ type VectorialNames = 'Point' | 'Segment' | 'Path' | 'Shape';
 type Mat2D = [[number, number], [number, number]];
 type Mat3D = [[number, number, number], [number, number, number], [number, number, number]];
 
-class WrappedVector implements WrappedVector {
+class WrappedVector {
   private type: VectorialNames;
   constructor(private vObj: Vectorial) {
     const err = Error(`${vObj} is not a Vectorial object.`);
