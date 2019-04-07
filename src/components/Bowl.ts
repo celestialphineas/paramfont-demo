@@ -2,7 +2,7 @@ import GlyphModel from '../GlyphModel';
 import GlyphOutline from '../GlyphOutline';
 import CommonParameters from '../CommonParameters';
 
-export default class Ring implements GlyphModel {
+export default class Bowl implements GlyphModel {
   private commonParameters: CommonParameters;
 
   constructor(parameters: CommonParameters, exclusiveParameters?: { [name: string]: any }) {
