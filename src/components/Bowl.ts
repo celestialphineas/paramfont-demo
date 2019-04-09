@@ -18,9 +18,9 @@ export default class Bowl implements ComponentModel {
     // Bowl shape superness
     'hSuper', 'vSuper',
     // Stroke width spec
-    'hair', 'vair', 'stem', 'curve',
-    // Pen angle
-    'penAngle'
+    'hair', 'curve',
+    // Curve angle
+    'curveAngle'
   ];
 
   constructor(parameters: CommonParameters, additionalParameters?: { [name: string]: any }) {
@@ -50,11 +50,15 @@ export default class Bowl implements ComponentModel {
     const seg1: Segment = BezierMath.reverse(vec(seg0).lmat([[1, 0], [0, -1]]).get() as Segment) as Segment;
     const seg2: Segment = vec(seg0).lmat([[-1, 0], [0, -1]]).get() as Segment;
     const seg3: Segment = vec(seg1).lmat([[-1, 0], [0, -1]]).get() as Segment;
-    const outerPath: Path = vec([seg0, seg1, seg2, seg3])
-      .mul((params.xMax - params.xMin)/2, (params.yMax - params.yMin)/2)
-      .add([(params.xMax + params.xMin)/2, (params.yMax + params.yMin)/2]).get() as Path;
-    // TODO: Finish the inner path
+    const ratioX = 1 - params.curve * 2 / (params.xMax - params.xMin);
+    const ratioY = 1 - params.hair * 2 / (params.yMax - params.yMin);
+    const relativeOuter: Path = [seg0, seg1, seg2, seg3];
+    const relativeInner: Path = BezierMath.reverse(vec(relativeOuter)
+      .mul(ratioX, ratioY)
+      .get() as Path) as Path;
 
-    return [outerPath /* , innerPath */];
+    return vec([relativeOuter, relativeInner])
+      .mul((params.xMax - params.xMin)/2, (params.yMax - params.yMin)/2)
+      .add([(params.xMax + params.xMin)/2, (params.yMax + params.yMin)/2]).get() as Shape;
   }
 }

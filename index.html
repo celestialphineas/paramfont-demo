@@ -11,8 +11,16 @@
 <body>
   <div id="ops" class="ops scrollable">
     <div class="ops-content">
-      <label>Horizontal superness</label>
       <form>
+        <label>Horizontal hairline</label>
+        <p class="range-field">
+          <input type="range" class="binded" min="10" max="200" step="1" data-bind="hair" />
+        </p>
+        <label>Curve width</label>
+        <p class="range-field">
+          <input type="range" class="binded" min="20" max="300" step="1" data-bind="curve" />
+        </p>
+        <label>Horizontal superness</label>
         <p class="range-field">
           <input type="range" class="binded" min="0" max="1" step="0.01" data-bind="hSuper" />
         </p>

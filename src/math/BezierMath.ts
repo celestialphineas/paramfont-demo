@@ -8,7 +8,7 @@ function clone<T>(obj: T): T {
 function reverse(line: Segment | Path | Shape): Segment | Path | Shape {
   switch(vec(line).type) {
     case 'Segment': return (clone(line) as Segment).reverse() as Segment;
-    case 'Path':    return (line as Path).map(segment => reverse(segment)) as Path;
+    case 'Path':    return (line as Path).map(segment => reverse(segment)).reverse() as Path;
     case 'Shape':   return (line as Shape).map(path => reverse(path)) as Shape;
   }
 }

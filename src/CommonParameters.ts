@@ -32,15 +32,15 @@ export default class CommonParameters {
 
   // Weight control
   /** Horizontal hairline */
-  hair = 8;
+  hair = 20;
   /** Vertical hairline */
-  vair = 10;
+  vair = 20;
   /** Stem */
   stem = 20;
   /** Curve stem width */
-  curve = 30;
-  /** Pen angle */
-  penAngle = 0;
+  curve = 40;
+  /** Curve angle */
+  curveAngle = 0;
 
   // Counter shape
   /** Horizontal superness */
