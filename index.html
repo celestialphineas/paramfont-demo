@@ -54,7 +54,7 @@
 (function () {
   $('.binded').each(function(index, elem) {
     var param = elem.getAttribute('data-bind');
-    $(elem).on('change', function() {
+    $(elem).on('input', function() {
       globalParams[param] = Number.parseFloat(elem.value);
       var event = new CustomEvent('param-change', { detail: param });
       window.dispatchEvent(event);
