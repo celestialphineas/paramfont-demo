@@ -69,6 +69,6 @@ console.log(vec(GlyphOutline.getDefault('ring').shapes['main'][0]).mul(2, 3).get
 
 // Rotation
 console.log('5.3: Path rotation multiplication');
-console.log(vec(GlyphOutline.getDefault('ring').shapes['main'][0]).mul(1/600, 1/200).rot([200, 300], Math.PI/3).get());
+console.log(vec(GlyphOutline.getDefault('ring').shapes['main'][0]).mul(1/600, 1/200).rot(Math.PI/3, [200, 300]).get());
 
 

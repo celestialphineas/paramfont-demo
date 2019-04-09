@@ -4,6 +4,7 @@ import { Shape, Path, Segment } from '../math/primitives';
 import vec from '../math/VectorMath';
 import BezierMath from '../math/BezierMath';
 import { isUndefined } from 'util';
+import { deg2rad } from '../math/utils';
 
 export default class Bowl implements ComponentModel {
   private commonParameters: CommonParameters;
@@ -58,7 +59,9 @@ export default class Bowl implements ComponentModel {
       .get() as Path) as Path;
 
     return vec([relativeOuter, relativeInner])
+      .rot(deg2rad(params.curveAngle))
       .mul((params.xMax - params.xMin)/2, (params.yMax - params.yMin)/2)
-      .add([(params.xMax + params.xMin)/2, (params.yMax + params.yMin)/2]).get() as Shape;
+      .add([(params.xMax + params.xMin)/2, (params.yMax + params.yMin)/2])
+      .get() as Shape;
   }
 }

@@ -97,7 +97,7 @@ class WrappedVector {
    * @param center Rotation center
    * @param rad Rotation angle in rad (counterclockwise)
    */
-  rot(center: Point, rad: number): WrappedVector {
+  rot(rad: number, center: Point = [0, 0]): WrappedVector {
     const [cx, cy] = center;
     const [cost, sint] = [ Math.cos(rad), Math.sin(rad) ];
     const mat = [
